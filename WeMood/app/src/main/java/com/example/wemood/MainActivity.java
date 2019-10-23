@@ -14,6 +14,7 @@ import com.example.wemood.Fragments.HomeFragment;
 import com.example.wemood.Fragments.MapFragment;
 import com.example.wemood.Fragments.ProfileFragment;
 
+//1223455667
 public class MainActivity extends AppCompatActivity {
 
     private RadioGroup mTabRadioGroup;
