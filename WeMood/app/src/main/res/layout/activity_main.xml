@@ -9,15 +9,13 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/tabs_rg"
-        android:background="#616161" />
+        android:layout_above="@+id/tabs_rg" />
 
     <RadioGroup
         android:id="@+id/tabs_rg"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:background="#414141"
         android:orientation="horizontal">
 
         <RadioButton
