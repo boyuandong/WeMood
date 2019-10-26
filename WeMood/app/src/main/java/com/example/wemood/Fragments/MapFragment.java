@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.wemood.R;
 
+//23122132132
 public class MapFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_SHOW_TEXT = "text";
