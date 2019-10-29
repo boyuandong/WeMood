@@ -1,8 +1,9 @@
 package com.example.wemood;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User {
+public class User implements Serializable {
     private String name, password;
     private ArrayList<Mood> myMoodList;
     private ArrayList<Mood> friendMoodList;
@@ -17,10 +18,38 @@ public class User {
     public User(String name, String password) {
         this.name = name;
         this.password = password;
+        this.myMoodList = new ArrayList<>();
+        this.friendMoodList = new ArrayList<>();
+        this.friendList = new ArrayList<>();
+        this.locationList = new ArrayList<>();
+        this.requestList = new ArrayList<>();
+        this.acceptedList = new ArrayList<>();
+        this.refusedList = new ArrayList<>();
+        this.allMoodList = new ArrayList<>();
+    }
+
+    public ArrayList<Mood> getMyMoodList() {
+        return myMoodList;
+    }
+
+    public ArrayList<Mood> getFriendMoodList() {
+        return friendMoodList;
+    }
+
+    public ArrayList<String> getLocationList() {
+        return locationList;
+    }
+
+    public ArrayList<Mood> getAllMoodList() {
+        return allMoodList;
     }
 
     public String getName(){
         return name;
+    }
+
+    public String getPassword(){
+        return password;
     }
 
     public ArrayList<User> getAcceptedList() {
@@ -41,6 +70,7 @@ public class User {
 
     public void addMood(Mood mood){
         this.myMoodList.add(mood);
+
     }
 
     public void deleteMood(int index){
@@ -56,8 +86,6 @@ public class User {
             }
         }
     }
-
-
 
     public User searchFriend(ArrayList<User> database, String name){
         for (User user:database ){
