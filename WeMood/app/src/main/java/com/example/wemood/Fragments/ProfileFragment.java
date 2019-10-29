@@ -31,14 +31,17 @@ public class ProfileFragment extends Fragment {
     public static ProfileFragment newInstance(String param1) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
+
         args.putString(ARG_SHOW_TEXT, param1);
         fragment.setArguments(args);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mContentText = getArguments().getString(ARG_SHOW_TEXT);
         }
@@ -75,6 +78,7 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         return rootView;
     }
 }

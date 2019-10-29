@@ -68,7 +68,7 @@
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:ems="10"
         android:hint="User Name"
@@ -148,7 +148,7 @@
         android:id="@+id/nickname"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginTop="93dp"
+        android:layout_marginTop="95dp"
         android:text="Alpha"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/username"
@@ -159,10 +159,11 @@
 
     <Button
         android:id="@+id/history"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="152dp"
+        android:layout_height="58dp"
         android:layout_marginBottom="65dp"
         android:text="My Moods History"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
@@ -171,8 +172,8 @@
 
     <RadioButton
         android:id="@+id/logout"
-        android:layout_width="89dp"
-        android:layout_height="37dp"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="20dp"
