@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioGroup;
 
 import com.example.wemood.Fragments.FriendsFragment;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         mTabRadioGroup = findViewById(R.id.tabs_rg);
         mFragmentSparseArray = new SparseArray<>();
         mFragmentSparseArray.append(R.id.today_tab, HomeFragment.newInstance("Home"));
-        mFragmentSparseArray.append(R.id.record_tab, FriendsFragment.newInstance("Friends"));
+        mFragmentSparseArray.append(R.id.friend_tab, FriendsFragment.newInstance("Friends"));
         mFragmentSparseArray.append(R.id.contact_tab, MapFragment.newInstance("MoodMap"));
         mFragmentSparseArray.append(R.id.settings_tab, ProfileFragment.newInstance("Profile"));
         mTabRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -52,4 +53,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

@@ -25,7 +25,7 @@
             android:drawableTop="@drawable/tab_home_selector" />
 
         <RadioButton
-            android:id="@+id/record_tab"
+            android:id="@+id/friend_tab"
             style="@style/Custom.TabRadioButton"
             android:drawableTop="@drawable/tab_friends_selector"
             />

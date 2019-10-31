@@ -41,9 +41,9 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
-        TextView contentTv = rootView.findViewById(R.id.content_tv);
-        contentTv.setText(mContentText);
+        View rootView = inflater.inflate(R.layout.friend_locked_page, container, false);
+//        TextView contentTv = rootView.findViewById(R.id.content_tv);
+//        contentTv.setText(mContentText);
         return rootView;
     }
 }
