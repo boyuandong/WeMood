@@ -14,19 +14,20 @@ import com.example.wemood.Fragments.HomeFragment;
 import com.example.wemood.Fragments.MapFragment;
 import com.example.wemood.Fragments.ProfileFragment;
 
-//1223455667
+
 public class MainActivity extends AppCompatActivity {
 
     private RadioGroup mTabRadioGroup;
     private SparseArray<Fragment> mFragmentSparseArray;
     public static User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = getIntent();
-        user = (User) intent.getSerializableExtra("user");
         initView();
+        Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra("User");
     }
 
     private void initView() {
@@ -50,9 +51,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.sign_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddMoodActivity.class);
-                intent.putExtra("user", user);
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, AddMoodActivity.class));
             }
         });
     }

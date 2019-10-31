@@ -1,18 +1,19 @@
 package com.example.wemood;
 
-import androidx.annotation.NonNull;
+public class Mood {
+    private String date;
+    private String time;
+    private String emotionalState;
+    private String comment;
+    private String socialSituation;
+    private MoodLocation location;
 
-import java.io.Serializable;
-
-public class Mood implements Serializable {
-     private String date, time, emotionalState, comment, sotialSituation, location;
-
-    public Mood(String date, String time, String emotionalState, String comment, String sotialSituation, String location) {
+    public Mood(String date, String time, String emotionalState, String comment, String socialSituation, MoodLocation location) {
         this.date = date;
         this.time = time;
         this.emotionalState = emotionalState;
         this.comment = comment;
-        this.sotialSituation = sotialSituation;
+        this.socialSituation = socialSituation;
         this.location = location;
     }
 
@@ -20,29 +21,47 @@ public class Mood implements Serializable {
         return date;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getTime() {
         return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getEmotionalState() {
         return emotionalState;
     }
 
+    public void setEmotionalState(String emotionalState) {
+        this.emotionalState = emotionalState;
+    }
+
     public String getComment() {
         return comment;
     }
 
-    public String getSotialSituation() {
-        return sotialSituation;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public String getLocation() {
+    public String getSocialSituation() {
+        return socialSituation;
+    }
+
+    public void setSocialSituation(String socialSituation) {
+        this.socialSituation = socialSituation;
+    }
+
+    public MoodLocation getLocation() {
         return location;
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return this.date + " " + this.time + " " + this.emotionalState + " " + this.comment + " " + this.sotialSituation + " " + this.location;
+    public void setLocation(MoodLocation location) {
+        this.location = location;
     }
 }

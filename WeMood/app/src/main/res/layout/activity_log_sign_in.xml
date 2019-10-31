@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#4E4C4C"
     android:orientation="vertical"
     tools:context=".LogSignInActivity">
 
@@ -17,23 +17,33 @@
         <TextView
             android:id="@+id/login"
             android:layout_width="match_parent"
-            android:layout_height="109dp"
+            android:layout_height="112dp"
+            android:background="#4E4C4C"
             android:baselineAligned="false"
+            android:gravity="center"
             android:text="Login"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/white"
+            android:textSize="30dp" />
 
         <EditText
             android:id="@+id/add_user_name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Username"
-            android:ems="7"/>
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:background="#FFFFFF"
+            android:ems="7"
+            android:hint="Your email address"
+            android:layout_gravity="center"/>
+
         <EditText
             android:id="@+id/add_user_password"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Password"
-            android:ems="7"/>/>
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:background="#FFFFFF"
+            android:ems="7"
+            android:hint="Your password"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"/>
 
 
     </LinearLayout>
@@ -43,22 +53,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/sign_up_button"
-            android:layout_width="208dp"
-            android:layout_height="wrap_content"
-            android:text="Sign up" />
 
-        <Button
-            android:id="@+id/sign_in_button"
-            android:layout_width="203dp"
-            android:layout_height="wrap_content"
-            android:text="Sign in" />
 
     </LinearLayout>
 
-
-
+    <Button
+        android:id="@+id/sign_up_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign up" />
+    <Button
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign in" />
 
 
 </LinearLayout>

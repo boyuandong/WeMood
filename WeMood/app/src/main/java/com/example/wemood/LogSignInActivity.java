@@ -12,131 +12,148 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import io.opencensus.tags.Tag;
 
 public class LogSignInActivity extends AppCompatActivity {
+
+
+    final String TAG = "Sample";
+    private Button signUpButton;
+    private Button signInButton;
+    private EditText addEmail;
+    private EditText addPassWord;
     ArrayList<User> userList;
-    User user;
+    List<String> userInfo;
+
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_sign_in);
 
-        final String TAG = "Sample";
-        Button signUpButton;
-        Button signInButton;
-        final EditText addUserName;
-        final EditText addPassWord;
-
-        FirebaseFirestore db;
 
         signUpButton = findViewById(R.id.sign_up_button);
+        signUpButton.setX(200);
+        signUpButton.setY(500);
         signInButton = findViewById(R.id.sign_in_button);
-        addUserName = findViewById(R.id.add_user_name);
+        signInButton.setX(950);
+        signInButton.setY(330);
+        addEmail = findViewById(R.id.add_user_name);
         addPassWord = findViewById(R.id.add_user_password);
 
-        userList = new ArrayList<>();
-
-        db = FirebaseFirestore.getInstance();
-
-        final CollectionReference collectionReference = db.collection("Users");
-
-        //to get the whole userList while start the app and to check whether username and password matched
-        //under sign in button
-
-
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                userList.clear();
-                for (QueryDocumentSnapshot doc: queryDocumentSnapshots){
-                    Log.d(TAG, String.valueOf(doc.getData().get("password")));
-                    String name = doc.getId();
-                    String password = (String) doc.getData().get("password");
-                    userList.add(new User(name,password));
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    Intent intent = new Intent(LogSignInActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
             }
-        });
+        };
 
-        //to get new user registery info(name and password and store into firestore
-        //after click sign up button, empty editText and jump into main activity
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                final String name = addUserName.getText().toString();
-                final String password = addPassWord.getText().toString();
-
-                HashMap<String, String> data = new HashMap<>();
-
-                if (name.length() > 0 && password.length() > 0){
-                    data.put("password", password);
-
-                    collectionReference
-                            .document(name)
-                            .set(data);
-                    addUserName.setText("");
-                    addPassWord.setText("");
-
-                    /*collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                            userList.clear();
-                            for (QueryDocumentSnapshot doc: queryDocumentSnapshots){
-                                Log.d(TAG, String.valueOf(doc.getData().get("password")));
-                                String name = doc.getId();
-                                String password = (String) doc.getData().get("password");
-                                userList.add(new User(name,password));
-                            }
-                        }
-                    });*/
-                }
-
-                Intent intent = new Intent(LogSignInActivity.this, MainActivity.class);
-                user = new User(name, password);
-                intent.putExtra("user", user);
+                Intent intent = new Intent(LogSignInActivity.this, SignUpActivity.class);
                 startActivity(intent);
+
             }
 
 
         });
-
-        //under this sign in button we verify the username and password
-        //if doesn't match we show error message else match we jump to main activity
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String name = addUserName.getText().toString();
+                final String email = addEmail.getText().toString();
                 final String password = addPassWord.getText().toString();
-                //do something
-                    for (int i = 0; i < userList.size(); i++){
-                        Log.d("name", userList.get(i).getName());
-                        Log.d("name",name);
-                        Log.d("name",userList.get(i).getPassword());
-                        Log.d("name",password);
-                        if(name.equals(userList.get(i).getName())   && password.equals(userList.get(i).getPassword())  ){
-                            Intent intent = new Intent(LogSignInActivity.this,MainActivity.class);
-                            startActivity(intent);
+
+                // get email and password and send it to fireBase Auth
+                if ((!email.isEmpty()) && (!password.isEmpty())) {
+                    FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
                         }
-                    }
+                    }).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            Toast.makeText(LogSignInActivity.this, "Sign in successfully!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(LogSignInActivity.this, "Sign in failed",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    mAuthListener = new FirebaseAuth.AuthStateListener() {
+                        @Override
+                        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (user != null) {
+                                Intent intent = new Intent(LogSignInActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+                    };
+
+
+                } else {
+                    Toast.makeText(LogSignInActivity.this, "Please check your input info",
+                            Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
-        //Log.d("myTag", "This is my message");
+
+
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().addAuthStateListener(mAuthListener);
+
+    }
+
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
+        }
+    }
+
+    private void setupFirebaseAuth() {
+
+
+    }
+
+
 }
