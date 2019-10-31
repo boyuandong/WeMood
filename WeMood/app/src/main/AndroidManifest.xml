@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".EditProfile"></activity>
+        <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".LogSignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

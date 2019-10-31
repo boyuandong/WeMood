@@ -57,7 +57,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="38dp"
+        android:layout_marginBottom="20dp"
         android:text="Following"
+        app:layout_constraintBottom_toTopOf="@+id/edit"
         app:layout_constraintStart_toEndOf="@+id/followers"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,19 +67,19 @@
         android:id="@+id/username"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="150dp"
         android:layout_marginBottom="5dp"
         android:ems="10"
         android:gravity="center"
         android:hint="User Name"
         android:inputType="textPersonName"
         android:text="User Name"
-        android:textSize="20sp"
+        android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/firstname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nickname" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/firstname"
@@ -151,20 +153,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
-    <TextView
-        android:id="@+id/nickname"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="95dp"
-        android:gravity="center"
-        android:text="Alpha"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/history"
         android:layout_width="152dp"
@@ -195,16 +183,13 @@
         android:id="@+id/edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:text="Edit"
         android:textAllCaps="false"
         android:textSize="19sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/nickname"
         app:layout_constraintBottom_toTopOf="@+id/username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toEndOf="@+id/nickname"
-        app:layout_constraintTop_toBottomOf="@+id/following"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

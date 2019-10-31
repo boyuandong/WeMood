@@ -8,24 +8,6 @@
     tools:context=".EditProfile">
 
     <EditText
-        android:id="@+id/username"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="User Name"
-        android:inputType="textPersonName"
-        android:text="User Name"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/firstname"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nickname" />
-
-    <EditText
         android:id="@+id/firstname"
         android:layout_width="300dp"
         android:layout_height="50dp"
@@ -35,13 +17,12 @@
         android:gravity="center"
         android:hint="First Name"
         android:inputType="textPersonName"
-        android:text="First Name"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/lastname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/nickname" />
 
     <EditText
         android:id="@+id/lastname"
@@ -53,7 +34,6 @@
         android:gravity="center"
         android:hint="Last Name"
         android:inputType="textPersonName"
-        android:text="Last Name"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/email"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +51,6 @@
         android:gravity="center"
         android:hint="Email"
         android:inputType="textPersonName"
-        android:text="Email"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/phone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +68,6 @@
         android:gravity="center"
         android:hint="Phone"
         android:inputType="textPersonName"
-        android:text="Phone"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/save"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,13 +77,13 @@
 
     <TextView
         android:id="@+id/nickname"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
         android:layout_marginTop="85dp"
         android:gravity="center"
         android:text="Alpha"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/username"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/firstname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"

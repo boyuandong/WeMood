@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable {
-    private String name, password;
+    private String name, password,firstname,lastname,email,phone;
     private ArrayList<Mood> myMoodList;
     private ArrayList<Mood> friendMoodList;
     private ArrayList<User> friendList;
@@ -14,18 +14,25 @@ public class User implements Serializable {
     private ArrayList<User> refusedList;
     private ArrayList<Mood> allMoodList;
 
-
-    public User(String name, String password) {
+    public User(String name, String password, String firstname, String lastname, String email, String phone){
         this.name = name;
         this.password = password;
-        this.myMoodList = new ArrayList<>();
-        this.friendMoodList = new ArrayList<>();
-        this.friendList = new ArrayList<>();
-        this.locationList = new ArrayList<>();
-        this.requestList = new ArrayList<>();
-        this.acceptedList = new ArrayList<>();
-        this.refusedList = new ArrayList<>();
-        this.allMoodList = new ArrayList<>();
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phone = phone;
+        this.myMoodList = new ArrayList<Mood>();
+        this.friendMoodList = new ArrayList<Mood>();
+        this.friendList = new ArrayList<User>();
+        this.locationList = new ArrayList<String>();
+        this.requestList = new ArrayList<User>();
+        this.acceptedList = new ArrayList<User>();
+        this.refusedList = new ArrayList<User>();
+        this.allMoodList = new ArrayList<Mood>();
+    }
+
+    public String getName(){
+        return name;
     }
 
     public ArrayList<Mood> getMyMoodList() {
@@ -44,12 +51,48 @@ public class User implements Serializable {
         return allMoodList;
     }
 
-    public String getName(){
-        return name;
-    }
-
     public String getPassword(){
         return password;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public ArrayList<User> getAcceptedList() {
@@ -70,7 +113,6 @@ public class User implements Serializable {
 
     public void addMood(Mood mood){
         this.myMoodList.add(mood);
-
     }
 
     public void deleteMood(int index){
@@ -86,6 +128,8 @@ public class User implements Serializable {
             }
         }
     }
+
+
 
     public User searchFriend(ArrayList<User> database, String name){
         for (User user:database ){
