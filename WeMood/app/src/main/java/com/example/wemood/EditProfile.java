@@ -18,11 +18,14 @@ import com.example.wemood.Fragments.ProfileFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Document;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,7 +46,7 @@ public class EditProfile extends AppCompatActivity {
         final Button save = findViewById(R.id.save);
 
         FirebaseFirestore db;
-        final CollectionReference collectionReference;
+        final DocumentReference documentReference;
         final String TAG = "Sample";
 
         //String new_nickname = nickname.getText().toString();
@@ -59,7 +62,7 @@ public class EditProfile extends AppCompatActivity {
         String Phone = intent.getStringExtra("phone"); */
 
         db = FirebaseFirestore.getInstance();
-        collectionReference = db.collection("Users");
+        documentReference = db.collection("Users").document(userNAme);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,25 +72,69 @@ public class EditProfile extends AppCompatActivity {
                 final String new_lastname = lastname.getText().toString();
                 final String new_email = email.getText().toString();
                 final String new_phone = phone.getText().toString();
+                documentReference
+                        .update("firstName",new_firstname,
+                        "lastName",new_lastname,
+                        "email",new_email,
+                        "phone",new_phone)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG,"Data addition successful");
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG,"Data addition failed" + e.toString());
+                            }
+                        });
+                /*
                 collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                             final String userName = doc.getId();
-                            //System.out.println(userName);
-                            //System.out.println(userNAme);
-                            //System.out.println("-------------");
                             if (userName.equals(userNAme)) {
-                                Map<String, String> userInfo = (Map<String, String>) doc.getData().get("userInfo");
-                                //Log.d("name1", user_attribute.get(0));
-                                userInfo.put("firstName", new_firstname);
-                                userInfo.put("lastName", new_lastname);
-                                userInfo.put("email", new_email);
-                                userInfo.put("phone", new_phone);
+                                Log.d("name",userNAme);
+                                Log.d("name",userName);
+                                collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                                        for (QueryDocumentSnapshot doc: queryDocumentSnapshots){
+                                            String name = doc.getId();
+                                            if (userName.equals(name)){
+                                                Map<String,String> userInfo = (Map<String,String>) doc.getData().get("userInfo");
+                                            }
+                                            collectionReference
+                                                    .document(name)
+                                                    .update("firstName", new_firstname,
+                                                            "lastName", new_lastname,
+                                                            "email", new_email,
+                                                            "phone", new_phone)
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            Log.d(TAG,"Data addition successful");
+
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.d(TAG,"Data addition failed" + e.toString());
+                                                        }
+                                                    });
+                                        }
+
+                                    }
+                                });
+
                             }
                         }
                     }
-                });
+                }); */
                 setResult(Activity.RESULT_OK,intent);
                 finish();
             }
