@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.wemood.FriendsExistMoodList;
 import com.example.wemood.Mood;
@@ -89,6 +91,17 @@ public class FriendsExistFragment extends Fragment {
         moodDataList.add(new Mood(dateTime4,"happy","I am happy","I am very happy these days","With two persons","U of A","Alpha"));
         moodAdapter = new FriendsExistMoodList(getContext(), moodDataList);
         friendmoodList.setAdapter(moodAdapter);
+
+        final Button backButton = rootView.findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FriendsFragment friendsFragment = new FriendsFragment();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, friendsFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         return rootView;
     }
