@@ -19,11 +19,13 @@ public class MainActivity extends AppCompatActivity {
 
     private RadioGroup mTabRadioGroup;
     private SparseArray<Fragment> mFragmentSparseArray;
-
+    public static User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra("user");
         initView();
     }
 
@@ -48,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.sign_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AddMoodActivity.class));
+                Intent intent = new Intent(MainActivity.this, AddMoodActivity.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
             }
         });
     }
