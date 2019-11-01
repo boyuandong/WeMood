@@ -44,9 +44,8 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private Button signUpButton;
-    private FirebaseFirestore db;
     private CollectionReference collectionReference;
-
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +118,7 @@ public class SignUpActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 setUserInfo(user.getUid(), username, email, phone);
+                                setUserMoodList(username);
 
                                 Toast.makeText(SignUpActivity.this, "Sign up successfully!",
                                         Toast.LENGTH_SHORT).show();
@@ -140,7 +140,14 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void setUserInfo(String userId, String username, String email, String phone) {
         User user = new User(email, username, phone, userId);
-        db.collection("Users").document(username).set(user);
+        collectionReference.document(username).set(user);
+
+    }
+
+    private void setUserMoodList(String username){
+        MyMoodList myMoodList = new MyMoodList();
+        collectionReference = db.collection("MoodList");
+        collectionReference.document(username).set(myMoodList);
 
     }
 

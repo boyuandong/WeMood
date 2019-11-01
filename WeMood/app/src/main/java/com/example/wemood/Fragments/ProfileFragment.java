@@ -106,13 +106,15 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+
+ */
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), LogSignInActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         return rootView;
     }

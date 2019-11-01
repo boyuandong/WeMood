@@ -44,8 +44,6 @@ public class LogSignInActivity extends AppCompatActivity {
     private Button signInButton;
     private EditText addEmail;
     private EditText addPassWord;
-    ArrayList<User> userList;
-    List<String> userInfo;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
