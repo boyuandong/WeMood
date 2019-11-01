@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.wemood.R;
 
-public class FriendsNotExistFragment extends Fragment {
+public class FriendsNotExistFragment extends Fragment{
     private static final String ARG_SHOW_TEXT = "text";
 
     private String mContentText;
@@ -55,6 +55,20 @@ public class FriendsNotExistFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+        Button followButton = rootView.findViewById(R.id.follow_button);
+        followButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                showEditDialog(mModify);
+                new FriendFollowFragment().show(getFragmentManager(), "Follow Pressed");
+            }
+        });
+
+//        public void showEditDialog(View v) {
+//            FriendFollowFragment = new FriendFollowFragment(this, R.style.AdInfoDialog, onClickListener);
+//            FriendFollowFragment.show();
+//        }
 
         return rootView;
     }

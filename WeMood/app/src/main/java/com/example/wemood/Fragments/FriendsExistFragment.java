@@ -18,7 +18,7 @@ import com.example.wemood.R;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class FriendsExistFragment extends Fragment {
+public class FriendsExistFragment extends Fragment{
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_SHOW_TEXT = "text";
 
@@ -103,6 +103,23 @@ public class FriendsExistFragment extends Fragment {
             }
         });
 
+        Button unfollowButton = rootView.findViewById(R.id.unfollow_button);
+        unfollowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new FriendUnfollowFragment().show(getFragmentManager(), "Unfollow Pressed");
+            }
+        });
+
         return rootView;
     }
+
+//    @Override
+//    public void onYesPressed(){
+//
+//    }
+//
+//    @Override
+//    public void onNoPressed(){
+//    }
 }
