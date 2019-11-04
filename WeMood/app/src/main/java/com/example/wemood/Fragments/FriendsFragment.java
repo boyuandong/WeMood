@@ -59,17 +59,17 @@ public class FriendsFragment extends Fragment {
         friendList = (ListView) rootView.findViewById(R.id.friend_list_content);
         frienddataList = new ArrayList<>();
 
-        frienddataList.add(new User("Alpha","passward1"));
+//        frienddataList.add(new User("Alpha","passward1"));
         frienddataList.add(new User("Zoey","passward1"));
-        frienddataList.add(new User("Boyuan","passward1"));
-        frienddataList.add(new User("Zuhao","passward1"));
-        frienddataList.add(new User("Ziyi","passward1"));
-        frienddataList.add(new User("Ruochen","passward1"));
-        frienddataList.add(new User("Willy","passward1"));
-        frienddataList.add(new User("Cherry","passward1"));
-        frienddataList.add(new User("Rose","passward1"));
-        frienddataList.add(new User("Candy","passward1"));
-        frienddataList.add(new User("Apple","passward1"));
+//        frienddataList.add(new User("Boyuan","passward1"));
+//        frienddataList.add(new User("Zuhao","passward1"));
+//        frienddataList.add(new User("Ziyi","passward1"));
+//        frienddataList.add(new User("Ruochen","passward1"));
+//        frienddataList.add(new User("Willy","passward1"));
+//        frienddataList.add(new User("Cherry","passward1"));
+//        frienddataList.add(new User("Rose","passward1"));
+//        frienddataList.add(new User("Candy","passward1"));
+//        frienddataList.add(new User("Apple","passward1"));
 
         friendAdapter = new FriendNameList(getActivity(), frienddataList);
         friendList.setAdapter(friendAdapter);

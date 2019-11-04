@@ -39,23 +39,16 @@ public class FriendUnfollowFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.friend_follow_fragment, null);
+//        View view = LayoutInflater.from(getActivity()).inflate(R.layout.friend_follow_fragment, null);
 
-        information = view.findViewById(R.id.follow_request);
+//        information = view.findViewById(R.id.follow_request);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         return builder
-                .setView(view)
-                .setTitle("Follow Request")
-                .setMessage("Your request will be sent. You can follow the user after approval.")
+//                .setView(view)
+                .setTitle("Unfollow Confirmation")
+                .setMessage("Are you sure you want to unfollow this friend?")
                 .setNeutralButton("No", null)
                 .setPositiveButton("Yes", null).create();
-
-
-//                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        listener.onYesPressed(currentRide);
-//                    }}).create();
     }
 
 

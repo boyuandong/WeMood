@@ -17,6 +17,7 @@ import com.example.wemood.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 public class FriendsExistFragment extends Fragment{
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -89,6 +90,7 @@ public class FriendsExistFragment extends Fragment{
         moodDataList.add(new Mood(dateTime2,"sad","I am sad","I am so sad today","Alone","Home","Lily"));
         moodDataList.add(new Mood(dateTime3,"tired","I am tired","I am so tired today","With a person","Winsor Park","Anna"));
         moodDataList.add(new Mood(dateTime4,"happy","I am happy","I am very happy these days","With two persons","U of A","Alpha"));
+        Collections.sort(moodDataList, Collections.reverseOrder());
         moodAdapter = new FriendsExistMoodList(getContext(), moodDataList);
         friendmoodList.setAdapter(moodAdapter);
 

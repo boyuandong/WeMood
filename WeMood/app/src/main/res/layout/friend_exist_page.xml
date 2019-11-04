@@ -19,43 +19,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/mood_num"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/mood_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="3"
-                    android:padding="2dp"
-                    android:text="Moods" />
-
-                <TextView
-                    android:id="@+id/follow_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="4"
-                    android:padding="2dp"
-                    android:text="Follower" />
-
-                <TextView
-                    android:id="@+id/following-num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="4"
-                    android:padding="2dp"
-                    android:text="Following" />
-            </LinearLayout>
-
+                android:textSize="15sp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="16dp"
+                android:padding="4dp"
+                android:text="Moods" />
             <TextView
                 android:id="@+id/friend_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="40dp"
                 android:padding="1dp"
                 android:text="Zoey"
                 android:textSize="30sp" />
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,12 +48,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="16dp"
                     android:text="Back"
                     android:textSize="15sp"/>
                 <Button
                     android:id="@+id/unfollow_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginStart="16dp"
                     android:padding="5dp"
                     android:text="Unfollow"
                     android:textSize="15sp"/>
