@@ -1,111 +1,50 @@
 package com.example.wemood;
 
-import java.util.ArrayList;
+
 
 public class User {
-    private String name, password;
-    private ArrayList<Mood> myMoodList;
-    private ArrayList<Mood> friendMoodList;
-    private ArrayList<User> friendList;
-    private ArrayList<String>locationList;
-    private ArrayList<User> requestList;
-    private ArrayList<User> acceptedList;
-    private ArrayList<User> refusedList;
-    private ArrayList<Mood> allMoodList;
+    private String email;
+    private String userName;
+    private String phone;
+    private String userId;
 
-
-    public User(String name, String password) {
-        this.name = name;
-        this.password = password;
+    public User(String email, String userName, String phone, String userId) {
+        this.email = email;
+        this.userName = userName;
+        this.phone = phone;
+        this.userId = userId;
     }
 
-    public String getName(){
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public ArrayList<User> getAcceptedList() {
-        return acceptedList;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public ArrayList<User> getFriendList() {
-        return friendList;
+    public String getUserId() {
+        return userId;
     }
 
-    public ArrayList<User> getRequestList() {
-        return requestList;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public void editMood(int index, Mood mood){
-        this.myMoodList.set(index, mood);
+    public String getEmail() {
+        return email;
     }
 
-    public void addMood(Mood mood){
-        this.myMoodList.add(mood);
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void deleteMood(int index){
-        this.myMoodList.remove(index);
+    public String getPhone() {
+        return phone;
     }
 
-    public void unfollowFriend(User friend){
-        int index = 0;
-        for (User user:friendList ){
-            index++;
-            if (friend.getName() == user.getName()){
-                this.friendList.remove(index);
-            }
-        }
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-
-
-    public User searchFriend(ArrayList<User> database, String name){
-        for (User user:database ){
-            if (user.getName() == name){
-                return user;
-            }
-        }
-        throw new IllegalArgumentException();
-    }
-
-    public ArrayList<User> getRefusedList() {
-        return refusedList;
-    }
-
-    public void acceptRequest(User other, User myself){
-        this.friendList.add(other);
-        other.getAcceptedList().add(myself);
-        other.getFriendList().add(myself);
-    }
-
-    public void refuseRequest(User other, User myself){
-        other.getRefusedList().add(myself);
-
-    }
-    public ArrayList<Mood> filterMoodList(String color){
-        ArrayList<Mood> happyList= new ArrayList<>();
-        ArrayList<Mood> aloneList = new ArrayList<>();
-        ArrayList<Mood> sadList= new ArrayList<>();
-        for (Mood mood:this.myMoodList ){
-            if (mood.getEmotionalState() == "alone"){
-                aloneList.add(mood);
-            }else if (mood.getEmotionalState() == "happy"){
-                happyList.add(mood);
-            }else if (mood.getEmotionalState() == "sad"){
-                sadList.add(mood);
-            }
-        }
-        if(color == "green"){
-            return aloneList;
-        }else if (color == "red"){
-            return happyList;
-        }else{
-            return sadList;
-        }
-    }
-
-
-    public void addToRequestList(User user){
-        user.getRequestList().add(user);
-    }
 }

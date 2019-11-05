@@ -1,30 +1,33 @@
 package com.example.wemood;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.example.wemood.Fragments.FriendsFragment;
 import com.example.wemood.Fragments.HomeFragment;
 import com.example.wemood.Fragments.MapFragment;
 import com.example.wemood.Fragments.ProfileFragment;
 
-//1223455667
+
 public class MainActivity extends AppCompatActivity {
 
     private RadioGroup mTabRadioGroup;
     private SparseArray<Fragment> mFragmentSparseArray;
+    public static User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra("User");
     }
 
     private void initView() {
