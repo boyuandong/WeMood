@@ -49,7 +49,7 @@ import static android.content.ContentValues.TAG;
  *
  * Date: November 4, 2019
  *
- * Copyright [2019] [Team10, Fal CMPUT301, University of Alberta]
+ * Copyright [2019] [Team10, Fall CMPUT301, University of Alberta]
  */
 
 public class ProfileFragment extends Fragment {
