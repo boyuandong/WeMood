@@ -1,36 +1,28 @@
 package com.example.wemood;
 
+import java.util.Date;
+
 public class Mood {
-    private String date;
-    private String time;
+    private Date datetime;
     private String emotionalState;
     private String comment;
     private String socialSituation;
-    private MoodLocation location;
 
-    public Mood(String date, String time, String emotionalState, String comment, String socialSituation, MoodLocation location) {
-        this.date = date;
-        this.time = time;
+
+    public Mood(Date datetime, String emotionalState, String comment, String socialSituation) {
+        this.datetime = datetime;
         this.emotionalState = emotionalState;
         this.comment = comment;
         this.socialSituation = socialSituation;
-        this.location = location;
+
     }
 
-    public String getDate() {
-        return date;
+    public Date getDatetime() {
+        return datetime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
     }
 
     public String getEmotionalState() {
@@ -57,11 +49,5 @@ public class Mood {
         this.socialSituation = socialSituation;
     }
 
-    public MoodLocation getLocation() {
-        return location;
-    }
 
-    public void setLocation(MoodLocation location) {
-        this.location = location;
-    }
 }
