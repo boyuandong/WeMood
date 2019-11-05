@@ -41,7 +41,7 @@ public class LogSignInActivity extends AppCompatActivity implements
         View.OnClickListener{
 
 
-    final String TAG = "Sample";
+    final String TAG = "LogSignInActivity";
     private EditText addEmail;
     private EditText addPassWord;
 
@@ -66,6 +66,18 @@ public class LogSignInActivity extends AppCompatActivity implements
         // [END initialize_auth]
     }
 
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.sign_in_button) {
+            signIn(addEmail.getText().toString(), addPassWord.getText().toString());
+
+        } else if (i == R.id.sign_up_button) {
+            Intent intent = new Intent(LogSignInActivity.this,SignUpActivity.class);
+            startActivity(intent);
+        }
+    }
+
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
         if (!validateForm()) {
@@ -78,16 +90,16 @@ public class LogSignInActivity extends AppCompatActivity implements
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            // Sign in success
                             Log.d(TAG, "signInWithEmail:success");
-                            Toast.makeText(LogSignInActivity.this, "Success",
+                            Toast.makeText(LogSignInActivity.this, "Success!",
                                     Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LogSignInActivity.this,MainActivity.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LogSignInActivity.this, "Authentication failed.",
+                            Toast.makeText(LogSignInActivity.this, "Login failed:(",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -117,15 +129,5 @@ public class LogSignInActivity extends AppCompatActivity implements
         return valid;
     }
 
-    @Override
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.sign_in_button) {
-            signIn(addEmail.getText().toString(), addPassWord.getText().toString());
 
-        } else if (i == R.id.sign_up_button) {
-            Intent intent = new Intent(LogSignInActivity.this,SignUpActivity.class);
-            startActivity(intent);
-        }
-    }
 }

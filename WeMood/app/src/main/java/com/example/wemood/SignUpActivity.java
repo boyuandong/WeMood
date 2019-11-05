@@ -35,12 +35,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity implements
+        View.OnClickListener{
 
     private EditText addUserName;
     private EditText addEmail;
     private EditText addPassWord;
     private EditText addPhone;
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     private static final String TAG = "SignUpActivity";
     private FirebaseAuth mAuth;
@@ -66,43 +68,30 @@ public class SignUpActivity extends AppCompatActivity {
         addPhone = findViewById(R.id.phone);
         addUserName = findViewById(R.id.username);
 
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String password = addPassWord.getText().toString();
-                final String email = addEmail.getText().toString();
-                final String phone = addPhone.getText().toString();
-                final String userName = addUserName.getText().toString();
+    }
 
-                if (email.isEmpty() || userName.isEmpty() || password.isEmpty()|| phone.isEmpty()) {
-                    Toast.makeText(SignUpActivity.this, "Cannot leave empty",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.sign_up_activity_button) {
+            final String password = addPassWord.getText().toString();
+            final String email = addEmail.getText().toString();
+            final String phone = addPhone.getText().toString();
+            final String userName = addUserName.getText().toString();
 
-                createAccount(userName, email, password, phone);
+            if (email.isEmpty() || userName.isEmpty() || password.isEmpty()|| phone.isEmpty()) {
+                Toast.makeText(SignUpActivity.this, "Cannot leave empty",
+                        Toast.LENGTH_SHORT).show();
+                return;
             }
-        });
-
-    }
-
-    private void setUserInfo(String userId, String username, String email, String phone) {
-        User user = new User(email, username, phone, userId);
-        collectionReference.document(username).set(user);
-
-    }
-
-    private void setUserMoodList(String username){
-        MyMoodList myMoodList = new MyMoodList();
-        collectionReference = db.collection("MoodList");
-        collectionReference.document(username).set(myMoodList);
-
+            createAccount(userName, email, password, phone);
+        }
     }
 
     private void createAccount(final String username, final String email, final String password, final String phone) {
         Log.d(TAG, "createAccount:" + email);
         if (!validateForm()) {
-            return;
+           return;
         }
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -111,12 +100,13 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             final FirebaseUser user = mAuth.getCurrentUser();
-                            setUserInfo(user.getUid(), username, email, phone);
-                            setUserMoodList(username);
+                            setUserFireBase(user.getUid(), username, email, phone);
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             Toast.makeText(SignUpActivity.this, "Success",
                                     Toast.LENGTH_SHORT).show();
+
+                            // set username
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                     .setDisplayName(addUserName.getText().toString())
                                     .build();
@@ -145,20 +135,25 @@ public class SignUpActivity extends AppCompatActivity {
         // [END create_user_with_email]
     }
 
+    private void setUserFireBase(String userId, String username, String email, String phone) {
+        User user = new User(email, username, phone, userId);
+        collectionReference.document(username).set(user);
+    }
+
     private boolean validateForm() {
         boolean valid = true;
-
         String email = addEmail.getText().toString();
         if (TextUtils.isEmpty(email)) {
             addEmail.setError("Required.");
             valid = false;
-        } else {
-            addEmail.setError(null);
+        } else if (!addEmail.getText().toString().trim().matches(emailPattern)){
+            addEmail.setError("Invalid email address");
+            valid = false;
         }
 
         String password = addPassWord.getText().toString();
-        if (TextUtils.isEmpty(password)) {
-            addPassWord.setError("Required.");
+        if (TextUtils.isEmpty(password) || !isPasswordValid(addPassWord.getText().toString())) {
+            addPassWord.setError("Invalid Password Format! At Least Length of 6 of Digits and Letters");
             valid = false;
         } else {
             addPassWord.setError(null);
@@ -166,21 +161,47 @@ public class SignUpActivity extends AppCompatActivity {
 
         String username = addUserName.getText().toString();
         if (TextUtils.isEmpty(username)) {
-            addUserName.setError("Required.");
+            addUserName.setError("Required");
             valid = false;
         } else {
             addUserName.setError(null);
         }
 
         String phone = addPhone.getText().toString();
-        if (TextUtils.isEmpty(phone)) {
-            addPhone.setError("Required.");
+        if (TextUtils.isEmpty(phone) || !isPhoneValid(addPhone.getText().toString())) {
+            addPhone.setError("Invalid Phone!");
             valid = false;
         } else {
             addPhone.setError(null);
         }
-
         return valid;
+    }
+
+    public boolean isPasswordValid(final String password){
+
+        if(password.length()<6){
+            return false;
+        }else{
+            for (int p =0; p < password.length();p++){
+                if(Character.isLetter(password.charAt(p))){
+                    Log.i("name12",Character.toString(password.charAt(p)));
+                    for(int i =0; i< password.length();i++){
+                        if (Character.isDigit(password.charAt(i))){
+                            Log.i("name23",Character.toString(password.charAt(i)));
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+    }
+
+    public boolean isPhoneValid(final String phone){
+        if (phone.length()<10){
+            return false;
+        }
+        return true;
     }
 
 }
