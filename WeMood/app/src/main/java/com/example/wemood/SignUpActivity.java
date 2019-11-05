@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private static final String TAG = "SignUpActivity";
     private FirebaseAuth mAuth;
-    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
     private Button signUpButton;
     private CollectionReference collectionReference;
     private FirebaseFirestore db;
@@ -64,20 +65,6 @@ public class SignUpActivity extends AppCompatActivity {
         addPhone = findViewById(R.id.phone);
         addUserName = findViewById(R.id.username);
 
-        addEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (addEmail.getText().toString().trim().matches(emailPattern) && addEmail.getText().toString().trim().length() > 0) {
-
-                } else {
-                    addEmail.setError("Invalid Email Address!");
-                }
-
-            }
-        });
-
-
-
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,56 +73,16 @@ public class SignUpActivity extends AppCompatActivity {
                 final String phone = addPhone.getText().toString();
                 final String userName = addUserName.getText().toString();
 
-                if (email.isEmpty() || userName.isEmpty() || password.isEmpty()) {
+                if (email.isEmpty() || userName.isEmpty() || password.isEmpty()|| phone.isEmpty()) {
                     Toast.makeText(SignUpActivity.this, "Cannot leave empty",
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 createAccount(userName, email, password, phone);
-
-
-                Intent intent = new Intent(SignUpActivity.this, LogSignInActivity.class);
-                startActivity(intent);
-
-
             }
         });
 
-    }
-
-    private void createAccount(final String username, final String email, final String password, final String phone) {
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-
-                    final FirebaseUser user = mAuth.getCurrentUser();
-
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(username).build();
-                    user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                setUserInfo(user.getUid(), username, email, phone);
-                                setUserMoodList(username);
-
-                                Toast.makeText(SignUpActivity.this, "Sign up successfully!",
-                                        Toast.LENGTH_SHORT).show();
-
-                                Intent intent = new Intent(SignUpActivity.this, LogSignInActivity.class);
-                                startActivity(intent);
-                            }
-                        }
-                    });
-
-
-                } else {
-                    Toast.makeText(SignUpActivity.this, "Email already exists",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     private void setUserInfo(String userId, String username, String email, String phone) {
@@ -149,6 +96,76 @@ public class SignUpActivity extends AppCompatActivity {
         collectionReference = db.collection("MoodList");
         collectionReference.document(username).set(myMoodList);
 
+    }
+
+    private void createAccount(final String username, final String email, final String password, final String phone) {
+        Log.d(TAG, "createAccount:" + email);
+        if (!validateForm()) {
+            return;
+        }
+        // [START create_user_with_email]
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            final FirebaseUser user = mAuth.getCurrentUser();
+                            setUserInfo(user.getUid(), username, email, phone);
+                            setUserMoodList(username);
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            Toast.makeText(SignUpActivity.this, "Success",
+                                    Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(SignUpActivity.this, LogSignInActivity.class);
+                            startActivity(intent);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(SignUpActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+        // [END create_user_with_email]
+    }
+
+    private boolean validateForm() {
+        boolean valid = true;
+
+        String email = addEmail.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            addEmail.setError("Required.");
+            valid = false;
+        } else {
+            addEmail.setError(null);
+        }
+
+        String password = addPassWord.getText().toString();
+        if (TextUtils.isEmpty(password)) {
+            addPassWord.setError("Required.");
+            valid = false;
+        } else {
+            addPassWord.setError(null);
+        }
+
+        String username = addUserName.getText().toString();
+        if (TextUtils.isEmpty(username)) {
+            addUserName.setError("Required.");
+            valid = false;
+        } else {
+            addUserName.setError(null);
+        }
+
+        String phone = addPhone.getText().toString();
+        if (TextUtils.isEmpty(phone)) {
+            addPhone.setError("Required.");
+            valid = false;
+        } else {
+            addPhone.setError(null);
+        }
+
+        return valid;
     }
 
 }
