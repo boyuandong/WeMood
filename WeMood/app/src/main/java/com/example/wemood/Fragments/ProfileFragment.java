@@ -41,7 +41,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.friend_exist_page, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 //        TextView contentTv = rootView.findViewById(R.id.content_tv);
 //        contentTv.setText(mContentText);
         return rootView;
