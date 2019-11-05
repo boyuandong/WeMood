@@ -6,14 +6,15 @@ public class Mood {
     private Date datetime;
     private String emotionalState;
     private String comment;
-    private String socialSituation;
+    private String socialSituation, title;
 
 
-    public Mood(Date datetime, String emotionalState, String comment, String socialSituation) {
+    public Mood(Date datetime, String emotionalState, String comment, String socialSituation, String title) {
         this.datetime = datetime;
         this.emotionalState = emotionalState;
         this.comment = comment;
         this.socialSituation = socialSituation;
+        this.title = title;
 
     }
 

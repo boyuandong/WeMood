@@ -83,13 +83,15 @@ public class AddMoodActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                EditText exp = findViewById(R.id.explanation);
+                EditText exp = findViewById(R.id.reason);
                 String explanation = exp.getText().toString();
+                EditText titl = findViewById(R.id.title);
+                String title = titl.getText().toString();
                 name = user.getDisplayName();
                 DocumentReference docRef = db.collection("Users").document(name);
                 db = FirebaseFirestore.getInstance();
                 //create the mood
-                mood = new Mood(currentTime, emotionString, explanation, situationString);
+                mood = new Mood(currentTime, emotionString, explanation, situationString, title);
                 //put the mood to firebase
                 docRef.collection("MoodList").document(currentTime.toString()).set(mood);
 
