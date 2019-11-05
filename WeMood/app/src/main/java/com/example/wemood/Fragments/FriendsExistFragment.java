@@ -11,7 +11,7 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.wemood.FriendsExistMoodList;
+import com.example.wemood.FriendMoodList;
 import com.example.wemood.Mood;
 import com.example.wemood.R;
 
@@ -86,12 +86,12 @@ public class FriendsExistFragment extends Fragment{
         dateTime4.set(Calendar.DAY_OF_MONTH,7);
         dateTime4.set(Calendar.HOUR_OF_DAY,9);
         dateTime4.set(Calendar.MINUTE,30);
-        moodDataList.add(new Mood(dateTime1,"happy","I am happy","I am so happy today","With a crowd","U of A","boyuan"));
-        moodDataList.add(new Mood(dateTime2,"sad","I am sad","I am so sad today","Alone","Home","Lily"));
-        moodDataList.add(new Mood(dateTime3,"tired","I am tired","I am so tired today","With a person","Winsor Park","Anna"));
-        moodDataList.add(new Mood(dateTime4,"happy","I am happy","I am very happy these days","With two persons","U of A","Alpha"));
+//        moodDataList.add(new Mood(dateTime1,"happy","I am happy","I am so happy today","With a crowd","U of A","Zoey"));
+        moodDataList.add(new Mood(dateTime2,"sad","I am sad","I am so sad today","Alone","Home","Zoey"));
+//        moodDataList.add(new Mood(dateTime3,"tired","I am tired","I am so tired today","With a person","Winsor Park","Zoey"));
+//        moodDataList.add(new Mood(dateTime4,"happy","I am happy","I am very happy these days","With two persons","U of A","Zoey"));
         Collections.sort(moodDataList, Collections.reverseOrder());
-        moodAdapter = new FriendsExistMoodList(getContext(), moodDataList);
+        moodAdapter = new FriendMoodList(getContext(), moodDataList);
         friendmoodList.setAdapter(moodAdapter);
 
         final Button backButton = rootView.findViewById(R.id.back_button);

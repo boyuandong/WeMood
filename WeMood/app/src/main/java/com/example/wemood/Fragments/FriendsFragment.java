@@ -1,6 +1,5 @@
 package com.example.wemood.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,16 +51,16 @@ public class FriendsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.friend_content, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_friend, container, false);
 //        TextView contentTv = rootView.findViewById(R.id.content_tv);
 //        contentTv.setText(mContentText);
 
         friendList = (ListView) rootView.findViewById(R.id.friend_list_content);
         frienddataList = new ArrayList<>();
 
-//        frienddataList.add(new User("Alpha","passward1"));
+        frienddataList.add(new User("Alpha","passward1"));
         frienddataList.add(new User("Zoey","passward1"));
-//        frienddataList.add(new User("Boyuan","passward1"));
+        frienddataList.add(new User("Boyuan","passward1"));
 //        frienddataList.add(new User("Zuhao","passward1"));
 //        frienddataList.add(new User("Ziyi","passward1"));
 //        frienddataList.add(new User("Ruochen","passward1"));
@@ -69,7 +68,7 @@ public class FriendsFragment extends Fragment {
 //        frienddataList.add(new User("Cherry","passward1"));
 //        frienddataList.add(new User("Rose","passward1"));
 //        frienddataList.add(new User("Candy","passward1"));
-//        frienddataList.add(new User("Apple","passward1"));
+        frienddataList.add(new User("Anna","passward1"));
 
         friendAdapter = new FriendNameList(getActivity(), frienddataList);
         friendList.setAdapter(friendAdapter);
