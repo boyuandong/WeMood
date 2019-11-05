@@ -14,7 +14,7 @@ import com.example.wemood.Fragments.HomeFragment;
 import com.example.wemood.Fragments.MapFragment;
 import com.example.wemood.Fragments.ProfileFragment;
 
-//1223455667
+
 public class MainActivity extends AppCompatActivity {
 
     private RadioGroup mTabRadioGroup;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         mFragmentSparseArray = new SparseArray<>();
         mFragmentSparseArray.append(R.id.today_tab, HomeFragment.newInstance("Home"));
         mFragmentSparseArray.append(R.id.record_tab, FriendsFragment.newInstance("Friends"));
-        mFragmentSparseArray.append(R.id.contact_tab, MapFragment.newInstance("MoodMap"));
+        mFragmentSparseArray.append(R.id.contact_tab, MapFragment.newInstance());
         mFragmentSparseArray.append(R.id.settings_tab, ProfileFragment.newInstance("Profile"));
         mTabRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
