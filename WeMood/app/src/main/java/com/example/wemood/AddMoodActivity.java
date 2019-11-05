@@ -25,6 +25,15 @@ import com.google.firebase.storage.StorageReference;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Class name: AddMoodActivity
+ *
+ * version 1.0
+ *
+ * Date: November 3, 2019
+ *
+ * Copyright [2019] [Team10, Fall CMPUT301, University of Alberta]
+ */
 public class AddMoodActivity extends AppCompatActivity{
     Mood mood;
     private StorageReference Folder;
@@ -35,6 +44,12 @@ public class AddMoodActivity extends AppCompatActivity{
     private FirebaseFirestore db;
     String name;
     Date currentTime = Calendar.getInstance().getTime();
+
+    /**
+     * @author Ziyi Ye
+     *
+     * @version 1.0
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +74,10 @@ public class AddMoodActivity extends AppCompatActivity{
         setSituationSpinner();
         setEmotionSpinner();
 
-        //press add mood button
+        /**
+         * press the Add Mood button
+         * put the mood to firebase
+         */
         Button Add = findViewById(R.id.add);
         Add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,14 +88,10 @@ public class AddMoodActivity extends AppCompatActivity{
                 name = user.getDisplayName();
                 DocumentReference docRef = db.collection("Users").document(name);
                 db = FirebaseFirestore.getInstance();
+                //create the mood
                 mood = new Mood(currentTime, emotionString, explanation, situationString);
-
+                //put the mood to firebase
                 docRef.collection("MoodList").document(currentTime.toString()).set(mood);
-                //HashMap<String, Mood> data = new HashMap<>();
-                //data.put("mood", mood);
-                //data.put("situation", situationString);
-                //data.put("comment", explanation);
-                //docRef.collection("MoodList").document(currentTime.toString()).set(data);
 
                 addImageToStorage();
                 finish();
@@ -86,7 +100,10 @@ public class AddMoodActivity extends AppCompatActivity{
         });
     }
 
-
+    /**
+     * check if any image is selected
+     * then add the image to a folder in firebase storage
+     */
     private void addImageToStorage(){
         if (imageUri != null){
             StorageReference Image = Folder.child("image");
@@ -95,7 +112,10 @@ public class AddMoodActivity extends AppCompatActivity{
     }
 
 
-    //use situation spinner to select a situation
+    /**
+     * initialize the situation spinner
+     * use situation spinner to select an emotion
+     */
     private void setSituationSpinner() {
         Spinner situation = findViewById(R.id.situations);
         ArrayAdapter<CharSequence> sitAdapter = ArrayAdapter.createFromResource(this, R.array.situations, android.R.layout.simple_spinner_item);
@@ -114,7 +134,11 @@ public class AddMoodActivity extends AppCompatActivity{
 
     }
 
-    //use emotion spinner to select an emotion
+
+    /**
+     * initialize the emotion spinner
+     * use emotion spinner to select an emotion
+     */
     private void setEmotionSpinner() {
         Spinner emotion = findViewById(R.id.emotionals);
         ArrayAdapter<CharSequence> emoAdapter = ArrayAdapter.createFromResource(this, R.array.emotionals, android.R.layout.simple_spinner_item);
@@ -133,8 +157,10 @@ public class AddMoodActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * get and show the selected image in the imageview
+     */
 
-    //get and show the selected image in the imageview
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if (requestCode == PICK_IMAGE) {
