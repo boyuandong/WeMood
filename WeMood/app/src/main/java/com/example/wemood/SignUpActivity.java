@@ -35,6 +35,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This is an activity that help and guide user to register
+ * their account correctly. By being switched by log in activity,
+ * this sign-up activity allows user to create a new account by
+ * providing their email, password, username and phone. The email
+ * format must correspond to correct email address and password
+ * must meet its complexity which is at least 6 length long and contain
+ * letters and numbers. Username is unique. Phone is consisted of  digits.
+ * Also no place can leave empty.
+ * */
+
 public class SignUpActivity extends AppCompatActivity implements
         View.OnClickListener{
 
@@ -70,6 +81,14 @@ public class SignUpActivity extends AppCompatActivity implements
 
     }
 
+    /**
+     * This method is to see whether sign-up button is
+     * clicked by its ID. If clicked then pass all parameter
+     * including password, email, phone and username to createAccount
+     * method.
+     * No place can leave empty, otherwise sign-up process can't be completed
+     * @param v*/
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
@@ -87,6 +106,18 @@ public class SignUpActivity extends AppCompatActivity implements
             createAccount(userName, email, password, phone);
         }
     }
+
+    /**
+     * This method is to take username, email, password, phone as argument
+     * then check their validation and create user by his/her email address
+     * to firestore. If email format and password complexity match requirement
+     * then show toast message "Success". If not meet, show "Authentication failed."
+     * Also it allows user to update their profile by typing new email and other
+     * user info.
+     * @param username
+     * @param email
+     * @param password
+     * @param phone*/
 
     private void createAccount(final String username, final String email, final String password, final String phone) {
         Log.d(TAG, "createAccount:" + email);
@@ -135,10 +166,25 @@ public class SignUpActivity extends AppCompatActivity implements
         // [END create_user_with_email]
     }
 
+    /**
+     * This method is to create a new User class object and
+     * upload it to firebase
+     * @param username
+     * @param email
+     * @param userId
+     * @param phone*/
+
     private void setUserFireBase(String userId, String username, String email, String phone) {
         User user = new User(email, username, phone, userId);
         collectionReference.document(username).set(user);
     }
+
+    /**
+     * This method is to check if email format and password are empty and match
+     * correct email address and password complexity then show error message
+     * accordingly. For username and phone we only check if it's empty and
+     * show error message accordingly
+     * @return Return boolean value*/
 
     private boolean validateForm() {
         boolean valid = true;
@@ -177,6 +223,15 @@ public class SignUpActivity extends AppCompatActivity implements
         return valid;
     }
 
+    /**
+     *  This method is to check only password that input by user
+     *  is applied by specific password pattern which is at least
+     *  6 length long and must contain both digits and letters
+     *  if not meet this requirement then return false else return
+     *  true.
+     *  @param password
+     *  @return Return boolean value*/
+
     public boolean isPasswordValid(final String password){
 
         if(password.length()<6){
@@ -196,7 +251,11 @@ public class SignUpActivity extends AppCompatActivity implements
             return false;
         }
     }
-
+    /**
+     * This method is to check length of phone number must
+     * less than 10 digits long. Return true and false accordingly
+     * @param phone
+     * @return Return boolean value*/
     public boolean isPhoneValid(final String phone){
         if (phone.length()<10){
             return false;
