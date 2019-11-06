@@ -21,9 +21,6 @@ import com.example.wemood.User;
 import java.util.ArrayList;
 
 public class FriendsFragment extends Fragment {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_SHOW_TEXT = "text";
-    private String mContentText;
 
     ListView friendList;
     ArrayAdapter<User> friendAdapter;
@@ -33,19 +30,13 @@ public class FriendsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static FriendsFragment newInstance(String param1) {
+    public static FriendsFragment newInstance() {
         FriendsFragment fragment = new FriendsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_SHOW_TEXT, param1);
-        fragment.setArguments(args);
         return fragment;
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mContentText = getArguments().getString(ARG_SHOW_TEXT);
-        }
     }
 
     @Override

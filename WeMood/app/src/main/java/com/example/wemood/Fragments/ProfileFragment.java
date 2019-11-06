@@ -53,10 +53,8 @@ import static android.content.ContentValues.TAG;
  */
 
 public class ProfileFragment extends Fragment {
-    // The fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_SHOW_TEXT = "text";
+
     // Other class attributes are also defined here
-    private String mContentText;
     private String userName;
     private String userID;
     private String email;
@@ -95,13 +93,8 @@ public class ProfileFragment extends Fragment {
      * @param param1
      * @return profile fragment
      */
-    public static ProfileFragment newInstance(String param1) {
+    public static ProfileFragment newInstance() {
         ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-
-        args.putString(ARG_SHOW_TEXT, param1);
-        fragment.setArguments(args);
-
         return fragment;
     }
 
@@ -112,10 +105,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mContentText = getArguments().getString(ARG_SHOW_TEXT);
-        }
     }
 
     /**

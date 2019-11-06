@@ -15,7 +15,6 @@ import androidx.fragment.app.DialogFragment;
 import com.example.wemood.R;
 
 public class FriendUnfollowFragment extends DialogFragment {
-    private static final String ARG_SHOW_TEXT = "text";
 
     private TextView information;
 //    private FriendFollowFragment.OnFragmentInteractionListener listener;

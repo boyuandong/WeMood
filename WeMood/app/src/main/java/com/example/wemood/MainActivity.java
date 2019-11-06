@@ -13,8 +13,6 @@ import com.example.wemood.Fragments.FriendsFragment;
 import com.example.wemood.Fragments.HomeFragment;
 import com.example.wemood.Fragments.MapFragment;
 import com.example.wemood.Fragments.ProfileFragment;
-import com.google.android.gms.maps.MapFragment;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
         mTabRadioGroup = findViewById(R.id.tabs_rg);
         mFragmentSparseArray = new SparseArray<>();
-        mFragmentSparseArray.append(R.id.today_tab, HomeFragment.newInstance("Home"));
-        mFragmentSparseArray.append(R.id.record_tab, FriendsFragment.newInstance("Friends"));
-        mFragmentSparseArray.append(R.id.contact_tab, MapFragment.newInstance("MoodMap"));
-        mFragmentSparseArray.append(R.id.settings_tab, ProfileFragment.newInstance("Profile"));
+        mFragmentSparseArray.append(R.id.today_tab, HomeFragment.newInstance());
+        mFragmentSparseArray.append(R.id.record_tab, FriendsFragment.newInstance());
+        mFragmentSparseArray.append(R.id.contact_tab, MapFragment.newInstance());
+        mFragmentSparseArray.append(R.id.settings_tab, ProfileFragment.newInstance());
         mTabRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

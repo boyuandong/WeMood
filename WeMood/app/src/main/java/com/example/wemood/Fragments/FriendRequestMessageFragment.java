@@ -16,9 +16,6 @@ import com.example.wemood.R;
 import java.util.ArrayList;
 
 public class FriendRequestMessageFragment extends Fragment {
-    private static final String ARG_SHOW_TEXT = "text";
-
-    private String mContentText;
 
     // Declare the variables so that you will be able to reference it later.
     ListView messageList;
@@ -30,20 +27,14 @@ public class FriendRequestMessageFragment extends Fragment {
         // Empty constructor
     }
 
-    public static FriendRequestMessageFragment newInstance(String param1) {
+    public static FriendRequestMessageFragment newInstance() {
         FriendRequestMessageFragment fragment = new FriendRequestMessageFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_SHOW_TEXT, param1);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mContentText = getArguments().getString(ARG_SHOW_TEXT);
-        }
     }
 
     @Override

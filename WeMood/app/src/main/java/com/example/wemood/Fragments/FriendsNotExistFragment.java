@@ -13,28 +13,19 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.wemood.R;
 
 public class FriendsNotExistFragment extends Fragment{
-    private static final String ARG_SHOW_TEXT = "text";
-
-    private String mContentText;
 
     public FriendsNotExistFragment() {
         // Required empty public constructor
     }
 
-    public static FriendsNotExistFragment newInstance(String param1) {
+    public static FriendsNotExistFragment newInstance() {
         FriendsNotExistFragment fragment = new FriendsNotExistFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_SHOW_TEXT, param1);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mContentText = getArguments().getString(ARG_SHOW_TEXT);
-        }
     }
 
     @Override

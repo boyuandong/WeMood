@@ -21,10 +21,6 @@ import java.util.Collections;
 import java.util.Date;
 
 public class FriendsExistFragment extends Fragment{
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_SHOW_TEXT = "text";
-
-    private String mContentText;
 
     ListView friendmoodList;
     ArrayAdapter<Mood> moodAdapter;
@@ -34,20 +30,14 @@ public class FriendsExistFragment extends Fragment{
         // Required empty public constructor
     }
 
-    public static FriendsExistFragment newInstance(String param1) {
+    public static FriendsExistFragment newInstance() {
         FriendsExistFragment fragment = new FriendsExistFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_SHOW_TEXT, param1);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mContentText = getArguments().getString(ARG_SHOW_TEXT);
-        }
     }
 
     @Override
