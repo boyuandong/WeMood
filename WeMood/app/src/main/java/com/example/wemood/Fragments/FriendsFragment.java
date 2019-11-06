@@ -16,6 +16,7 @@ import com.example.wemood.FriendNameList;
 import com.example.wemood.R;
 //import com.example.wemood.ShowExistFriend;
 import com.example.wemood.User;
+//import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 
@@ -51,16 +52,16 @@ public class FriendsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_friend, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
 //        TextView contentTv = rootView.findViewById(R.id.content_tv);
 //        contentTv.setText(mContentText);
 
         friendList = (ListView) rootView.findViewById(R.id.friend_list_content);
         frienddataList = new ArrayList<>();
 
-        frienddataList.add(new User("Alpha","passward1"));
-        frienddataList.add(new User("Zoey","passward1"));
-        frienddataList.add(new User("Boyuan","passward1"));
+        frienddataList.add(new User("Alpha@ualberta.ca","Alpha","123-222-2222","AlphaUserID"));
+        frienddataList.add(new User("Zoey@ualberta.ca","Zoey","123-111-1111","ZoeyUserID"));
+        frienddataList.add(new User("Boyuan@gmail.com","Boyuan","122-111-1122","BoyuanUserID"));
 //        frienddataList.add(new User("Zuhao","passward1"));
 //        frienddataList.add(new User("Ziyi","passward1"));
 //        frienddataList.add(new User("Ruochen","passward1"));
@@ -68,7 +69,7 @@ public class FriendsFragment extends Fragment {
 //        frienddataList.add(new User("Cherry","passward1"));
 //        frienddataList.add(new User("Rose","passward1"));
 //        frienddataList.add(new User("Candy","passward1"));
-        frienddataList.add(new User("Anna","passward1"));
+        frienddataList.add(new User("Anna@gmail.com","Anna","222-222-1234","AnnaUserID"));
 
         friendAdapter = new FriendNameList(getActivity(), frienddataList);
         friendList.setAdapter(friendAdapter);

@@ -34,7 +34,7 @@ public class FriendNameList extends ArrayAdapter<User> {
 
         TextView FriendName = view.findViewById(R.id.friend_view);
 
-        FriendName.setText(friendname.getName());
+        FriendName.setText(friendname.getUserName());
 
         return view;
     }

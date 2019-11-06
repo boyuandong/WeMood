@@ -58,8 +58,8 @@ public class FriendMoodList extends ArrayAdapter<Mood> {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         FriendMoodDate.setText(dateFormat.format(mood.getDatetime().getTime()));
         FriendMoodTime.setText(timeFormat.format(mood.getDatetime().getTime()));
-        FriendMoodSocialSituation.setText(mood.getSotialSituation());
-        FriendMoodLocation.setText(mood.getLocation());
+        FriendMoodSocialSituation.setText(mood.getSocialSituation());
+//        FriendMoodLocation.setText(mood.getLocation());
         //        FriendMoodState.setText(mood.getEmotionalState());
 
 
