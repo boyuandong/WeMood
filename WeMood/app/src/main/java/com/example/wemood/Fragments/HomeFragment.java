@@ -26,8 +26,7 @@ public class HomeFragment extends Fragment {
     ListView friendmoodList;
     ArrayAdapter<Mood> moodAdapter;
     ArrayList<Mood> moodDataList;
-
-
+    
     public HomeFragment() {
         // Required empty public constructor
     }
