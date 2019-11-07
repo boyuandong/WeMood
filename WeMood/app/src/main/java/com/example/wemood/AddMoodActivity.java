@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -87,19 +88,43 @@ public class AddMoodActivity extends AppCompatActivity{
                 String explanation = exp.getText().toString();
                 EditText titl = findViewById(R.id.title);
                 String title = titl.getText().toString();
-                name = user.getDisplayName();
-                DocumentReference docRef = db.collection("Users").document(name);
-                db = FirebaseFirestore.getInstance();
-                //create the mood
-                mood = new Mood(currentTime, emotionString, explanation, situationString, title);
-                //put the mood to firebase
-                docRef.collection("MoodList").document(currentTime.toString()).set(mood);
 
-                addImageToStorage();
-                finish();
+                if (containsSpace(title)){
+                    Toast.makeText(AddMoodActivity.this, "title has no more than 3 words", Toast.LENGTH_SHORT).show();
+                }else{
+                    name = user.getDisplayName();
+                    DocumentReference docRef = db.collection("Users").document(name);
+                    db = FirebaseFirestore.getInstance();
+                    //create the mood
+                    mood = new Mood(currentTime, emotionString, explanation, situationString, title);
+                    //put the mood to firebase
+                    docRef.collection("MoodList").document(currentTime.toString()).set(mood);
+
+                    addImageToStorage();
+                    finish();
+                }
+
 
             }
         });
+    }
+
+    /**
+     * check if title has more than 3 words
+     */
+    public boolean containsSpace(String comment){
+        String Comment = comment.trim();
+        int numSpace = 0;
+        for(int i =0;i< Comment.length(); i++){
+            if (Character.isWhitespace(Comment.charAt(i))){
+                numSpace++;
+            }
+        }
+        if (numSpace > 2){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -126,7 +151,12 @@ public class AddMoodActivity extends AppCompatActivity{
         situation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                situationString = parent.getItemAtPosition(position).toString();
+                if (parent.getItemAtPosition(position).equals("choose a situation")){
+                    situationString = "";
+                }else{
+                    situationString = parent.getItemAtPosition(position).toString();
+                }
+
             }
 
             @Override
@@ -149,7 +179,9 @@ public class AddMoodActivity extends AppCompatActivity{
         emotion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                if (parent.getItemAtPosition(position).equals("choose an emotion")){
+                    emotionString = "";
+                }
                 emotionString = parent.getItemAtPosition(position).toString();
             }
             @Override
