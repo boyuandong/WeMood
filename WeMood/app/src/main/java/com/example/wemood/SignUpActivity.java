@@ -1,6 +1,7 @@
 package com.example.wemood;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -28,12 +29,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
 
 /**
  * This is an activity that help and guide user to register
@@ -54,6 +61,9 @@ public class SignUpActivity extends AppCompatActivity implements
     private EditText addPassWord;
     private EditText addPhone;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    private boolean valid_name;
+
+
 
     private static final String TAG = "SignUpActivity";
     private FirebaseAuth mAuth;
@@ -61,6 +71,8 @@ public class SignUpActivity extends AppCompatActivity implements
     private Button signUpButton;
     private CollectionReference collectionReference;
     private FirebaseFirestore db;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +90,7 @@ public class SignUpActivity extends AppCompatActivity implements
         addEmail = findViewById(R.id.email);
         addPhone = findViewById(R.id.phone);
         addUserName = findViewById(R.id.username);
+
 
     }
 
@@ -103,7 +116,21 @@ public class SignUpActivity extends AppCompatActivity implements
                         Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            /*if (isUserNameValid(userName)){
+
+
+            }else{
+                addUserName.setError("User name is already exist");
+            }*/
+
             createAccount(userName, email, password, phone);
+
+
+
+
+
+
         }
     }
 
@@ -119,7 +146,7 @@ public class SignUpActivity extends AppCompatActivity implements
      * @param password
      * @param phone*/
 
-    private void createAccount(final String username, final String email, final String password, final String phone) {
+    public void createAccount(final String username, final String email, final String password, final String phone) {
         Log.d(TAG, "createAccount:" + email);
         if (!validateForm()) {
             return;
@@ -205,11 +232,14 @@ public class SignUpActivity extends AppCompatActivity implements
             addPassWord.setError(null);
         }
 
-        String username = addUserName.getText().toString();
-        if (TextUtils.isEmpty(username)) {
+        String username = addUserName.getText().toString().trim();
+        if (TextUtils.isEmpty(username) ) {
             addUserName.setError("Required");
             valid = false;
-        } else {
+        } /*else if (!isUserNameValid(addUserName.getText().toString())) {
+            addUserName.setError("Username already exist!");
+
+        }*/else{
             addUserName.setError(null);
         }
 
@@ -244,6 +274,7 @@ public class SignUpActivity extends AppCompatActivity implements
                         if (Character.isDigit(password.charAt(i))){
                             Log.i("name23",Character.toString(password.charAt(i)));
                             return true;
+
                         }
                     }
                 }
@@ -263,4 +294,51 @@ public class SignUpActivity extends AppCompatActivity implements
         return true;
     }
 
+
+
+
+
+
+
+    /*private boolean isUserNameValid(final String username){
+        Log.d("name0",username);
+
+        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                for(QueryDocumentSnapshot doc: queryDocumentSnapshots){
+
+
+                    String usernameInDataBase = doc.getId();
+                    Log.d("name1",usernameInDataBase);
+                    if (usernameInDataBase.equals(username)){
+                        myCallback.onCallback(usernameInDataBase);
+
+
+                        Log.d("name2", "found");
+                        break;
+                    }else{
+
+                        Log.d("name2", "not found");
+                    }
+
+                }
+            }
+        });
+        System.out.println("---------"+valid.isNameValid());
+        return valid.isNameValid();
+    }
+
+    public String readData(new MyCallback() {
+        @Override
+        public void onCallback(String value) {
+            Log.d("TAG", value);
+        }
+    });*/
+
+
 }
+
+

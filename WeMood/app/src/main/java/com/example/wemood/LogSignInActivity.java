@@ -48,7 +48,7 @@ import io.opencensus.tags.Tag;
  *   it in our app database by pressing sign in button, which is
  *   firebase and also in order to protect user privacy we set up
  *   a hiding password function. If user-input email address and
- *   password are match we switch to main activity which is homepage
+ *   password are match we switch to main activity w    hich is homepage
  *   of this app.If sign-up button is pressed then jump to sign-up activity.
  *
  */
@@ -138,7 +138,7 @@ public class LogSignInActivity extends AppCompatActivity implements
 
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
-        if (!validateForm()) {
+        if (!validateForm(addEmail.getText().toString(),addPassWord.getText().toString())) {
             return;
         }
 
@@ -171,10 +171,10 @@ public class LogSignInActivity extends AppCompatActivity implements
      * hand side accordingly
      * @return Return boolean value*/
 
-    private boolean validateForm() {
+    public boolean validateForm(String email,String password) {
         boolean valid = true;
 
-        String email = addEmail.getText().toString();
+        //String email = addEmail.getText().toString();
         if (TextUtils.isEmpty(email)) {
             addEmail.setError("Required.");
             valid = false;
@@ -182,7 +182,7 @@ public class LogSignInActivity extends AppCompatActivity implements
             addEmail.setError(null);
         }
 
-        String password = addPassWord.getText().toString();
+        //String password = addPassWord.getText().toString();
         if (TextUtils.isEmpty(password)) {
             addPassWord.setError("Required.");
             valid = false;
