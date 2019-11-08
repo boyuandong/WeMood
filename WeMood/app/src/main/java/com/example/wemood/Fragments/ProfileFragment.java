@@ -8,7 +8,11 @@ package com.example.wemood.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +94,6 @@ public class ProfileFragment extends Fragment {
 
     /**
      * Constructor
-     * @param param1
      * @return profile fragment
      */
     public static ProfileFragment newInstance() {
@@ -157,10 +160,10 @@ public class ProfileFragment extends Fragment {
      * @return the current user
      */
     public FirebaseUser getUser() {
-            mAuth = FirebaseAuth.getInstance();
-            user = mAuth.getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
 
-            return user;
+        return user;
     }
 
     /**
@@ -243,37 +246,45 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 newPhone = editPhoneView.getText().toString();
-                // Update current phone number
-                documentReference
-                        .update("phone", newPhone)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully updated!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error updating document", e);
-                            }
-                        });
-                // Get and display new phone number
-                documentReference.get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                User user = documentSnapshot.toObject(User.class);
-                                phone = user.getPhone();
-                                phoneView.setText("New Phone No.: " + phone);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(), "Error!", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, e.toString());
-                    }
-                });
+                // Check the validity
+                // Should not be empty and the length should be less than 10
+                if (TextUtils.isEmpty(newPhone) || !(newPhone.length() < 10)) {
+                    editPhoneView.setError("Invalid Phone!");
+                } else {
+                    editPhoneView.setError(null);
+                    // Update current phone number
+                    documentReference
+                            .update("phone", newPhone)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error updating document", e);
+                                }
+                            });
+                    // Get and display new phone number
+                    documentReference.get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    User user = documentSnapshot.toObject(User.class);
+                                    phone = user.getPhone();
+                                    phoneView.setText("New Phone No.: " + phone);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(), "Error!", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, e.toString());
+                        }
+                    });
+                }
+
             }
         });
     }

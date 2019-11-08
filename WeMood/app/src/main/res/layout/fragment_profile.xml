@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/profile_background"
+    android:background="#E9C4C4"
     tools:context=".Fragments.ProfileFragment">
 
     <ImageView
@@ -144,6 +144,7 @@
         android:ems="10"
         android:gravity="center"
         android:hint="Edit Phone No. Here"
+        android:digits="1234567890"
         android:inputType="phone"
         android:textColor="@android:color/black"
         android:textSize="26sp"
@@ -175,7 +176,6 @@
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginBottom="25dp"
-        android:background="@android:color/holo_red_light"
         android:text="Log Out"
         android:textColor="@android:color/black"
         android:textSize="23sp"

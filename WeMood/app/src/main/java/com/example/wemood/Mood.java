@@ -13,11 +13,12 @@ public class Mood implements Comparable<Mood>{
 
 
     // Add mood original constructor
-    public Mood(Date datetime, String emotionalState, String comment, String socialSituation) {
+    public Mood(Date datetime, String emotionalState, String comment, String socialSituation, String title) {
         this.datetime = datetime;
         this.emotionalState = emotionalState;
         this.comment = comment;
         this.socialSituation = socialSituation;
+        this.explanation = title;
 
     }
 
