@@ -70,8 +70,6 @@ public class AddMoodActivity extends AppCompatActivity{
                 startActivityForResult(gallery, PICK_IMAGE);
             }
         });
-
-
         setSituationSpinner();
         setEmotionSpinner();
 
@@ -95,22 +93,39 @@ public class AddMoodActivity extends AppCompatActivity{
                     name = user.getDisplayName();
                     DocumentReference docRef = db.collection("Users").document(name);
                     db = FirebaseFirestore.getInstance();
-                    //create the mood
-                    mood = new Mood(currentTime, emotionString, explanation, situationString, title);
-                    //put the mood to firebase
-                    docRef.collection("MoodList").document(currentTime.toString()).set(mood);
+                    addMood(currentTime, emotionString, explanation, situationString, title, docRef);
 
-                    addImageToStorage();
+                    //add image to storage if it is not null
+                    if (imageUri != null){
+                        StorageReference Image = Folder.child("image");
+                        Image.putFile(imageUri);
+                    }
                     finish();
                 }
-
-
             }
         });
     }
 
+
     /**
-     * check if title has more than 3 words
+     * create the mood and add to mood to firebase
+     * @param currentTime
+     * @param emotionString
+     * @param explanation
+     * @param situationString
+     * @param title
+     * @param docRef
+     */
+    public void addMood(Date currentTime, String emotionString, String explanation, String situationString, String title, DocumentReference docRef){
+        mood = new Mood(currentTime, emotionString, explanation, situationString, title);
+        //put the mood to firebase
+        docRef.collection("MoodList").document(currentTime.toString()).set(mood);
+    }
+
+    /**
+     * check if a string has more than 3 words
+     * @param comment
+     * @return whether comment has more than 3 words
      */
     public boolean containsSpace(String comment){
         String Comment = comment.trim();
@@ -127,16 +142,6 @@ public class AddMoodActivity extends AppCompatActivity{
         }
     }
 
-    /**
-     * check if any image is selected
-     * then add the image to a folder in firebase storage
-     */
-    private void addImageToStorage(){
-        if (imageUri != null){
-            StorageReference Image = Folder.child("image");
-            Image.putFile(imageUri);
-        }
-    }
 
 
     /**
