@@ -19,13 +19,13 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/home_tab"
+            android:id="@+id/today_tab"
             style="@style/Custom.TabRadioButton"
             android:checked="true"
             android:drawableTop="@drawable/tab_home_selector" />
 
         <RadioButton
-            android:id="@+id/friends_tab"
+            android:id="@+id/record_tab"
             style="@style/Custom.TabRadioButton"
             android:drawableTop="@drawable/tab_friends_selector"
             />
@@ -33,13 +33,13 @@
         <View style="@style/Custom.TabRadioButton" />
 
         <RadioButton
-            android:id="@+id/map_tab"
+            android:id="@+id/contact_tab"
             style="@style/Custom.TabRadioButton"
             android:drawableTop="@drawable/tab_map_selector"
              />
 
         <RadioButton
-            android:id="@+id/profile_tab"
+            android:id="@+id/settings_tab"
             style="@style/Custom.TabRadioButton"
             android:drawableTop="@drawable/tab_profile_selector"
             />

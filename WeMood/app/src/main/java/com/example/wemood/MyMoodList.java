@@ -12,8 +12,12 @@ import java.util.ArrayList;
 public class MyMoodList{
     private static final String TAG = "MyMoodList";
     private CollectionReference collectionReference;
-    private static ArrayList<Mood> myMoods;
+    private ArrayList<Mood> myMoods;
     private String userName;
+
+    public ArrayList<Mood> getMyMoods() {
+        return myMoods;
+    }
 
     public MyMoodList() {
         myMoods = new ArrayList<>();
@@ -23,9 +27,6 @@ public class MyMoodList{
         this.collectionReference = db.collection("MoodList");
     }
 
-    public static ArrayList<Mood> getMyMoods() {
-        return myMoods;
-    }
 
     public void addMood(Mood mood){
         collectionReference.document(this.userName).set(mood);

@@ -70,8 +70,6 @@ public class AddMoodActivity extends AppCompatActivity{
                 startActivityForResult(gallery, PICK_IMAGE);
             }
         });
-
-
         setSituationSpinner();
         setEmotionSpinner();
 
@@ -95,29 +93,35 @@ public class AddMoodActivity extends AppCompatActivity{
                     name = user.getDisplayName();
                     DocumentReference docRef = db.collection("Users").document(name);
                     db = FirebaseFirestore.getInstance();
-                    //create the mood
-                    mood = new Mood(currentTime, emotionString, explanation, situationString, title);
-                    //put the mood to firebase
-                    docRef.collection("MoodList").document(currentTime.toString()).set(mood);
+                    addMood(currentTime, emotionString, explanation, situationString, title, docRef);
 
                     //add image to storage if it is not null
                     if (imageUri != null){
                         StorageReference Image = Folder.child("image");
                         Image.putFile(imageUri);
                     }
-
                     finish();
                 }
-
-
             }
         });
     }
 
     /**
+     * create the mood and add to mood to firebase
+     * @param currentTime
+     * @param emotionString
+     * @param explanation
+     * @param situationString
+     * @param title
+     * @param docRef
+     */
+    public void addMood(Date currentTime, String emotionString, String explanation, String situationString, String title, DocumentReference docRef){
+        mood = new Mood(currentTime, emotionString, explanation, situationString, title);
+        //put the mood to firebase
+        docRef.collection("MoodList").document(currentTime.toString()).set(mood);
+    }
+    /**
      * check if title has more than 3 words
-     * @param comment
-     * @return whether comment has more than 3 words
      */
     public boolean containsSpace(String comment){
         String Comment = comment.trim();
@@ -133,6 +137,8 @@ public class AddMoodActivity extends AppCompatActivity{
             return false;
         }
     }
+
+
 
     /**
      * initialize the situation spinner
@@ -177,9 +183,7 @@ public class AddMoodActivity extends AppCompatActivity{
                 if (parent.getItemAtPosition(position).equals("choose an emotion")){
                     emotionString = "";
                 }
-                else{
-                    emotionString = parent.getItemAtPosition(position).toString();
-                }
+                emotionString = parent.getItemAtPosition(position).toString();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {

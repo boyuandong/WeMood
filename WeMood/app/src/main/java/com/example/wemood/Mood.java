@@ -2,36 +2,19 @@ package com.example.wemood;
 
 import java.util.Date;
 
-public class Mood implements Comparable<Mood>{
+public class Mood {
     private Date datetime;
     private String emotionalState;
-    private String explanation;
     private String comment;
-    private String socialSituation;
-    private String location;
-    private String username;
+    private String socialSituation, title;
 
 
-    // Add mood original constructor
     public Mood(Date datetime, String emotionalState, String comment, String socialSituation, String title) {
         this.datetime = datetime;
         this.emotionalState = emotionalState;
         this.comment = comment;
         this.socialSituation = socialSituation;
-        this.explanation = title;
-
-    }
-
-
-    // Used in Home Page Constructor
-    public Mood(Date datetime, String emotionalState, String explanation, String comment, String socialSituation, String location, String username) {
-        this.datetime = datetime;
-        this.emotionalState = emotionalState;
-        this.comment = comment;
-        this.socialSituation = socialSituation;
-        this.explanation = explanation;
-        this.location = location;
-        this.username = username;
+        this.title = title;
 
     }
 
@@ -67,35 +50,5 @@ public class Mood implements Comparable<Mood>{
         this.socialSituation = socialSituation;
     }
 
-    public String getExplanation() {
-        return explanation;
-    }
-
-    public void setExplanation(String explanation) {
-        this.explanation = explanation;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    // Compare to the other mood's date
-    // used to sort moods in moodlist by date
-    @Override
-    public int compareTo(Mood mood){
-        return getDatetime().compareTo(mood.getDatetime());
-    }
 
 }

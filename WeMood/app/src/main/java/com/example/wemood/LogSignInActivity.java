@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -37,96 +36,121 @@ import java.util.Map;
 
 import io.opencensus.tags.Tag;
 
-public class LogSignInActivity extends AppCompatActivity implements
-        View.OnClickListener{
+public class LogSignInActivity extends AppCompatActivity {
 
 
-    final String TAG = "LogSignInActivity";
+    final String TAG = "Sample";
+    private Button signUpButton;
+    private Button signInButton;
     private EditText addEmail;
     private EditText addPassWord;
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_sign_in);
 
-        // Views
+
+        signUpButton = findViewById(R.id.sign_up_button);
+        signUpButton.setX(200);
+        signUpButton.setY(500);
+        signInButton = findViewById(R.id.sign_in_button);
+        signInButton.setX(950);
+        signInButton.setY(330);
         addEmail = findViewById(R.id.add_user_name);
         addPassWord = findViewById(R.id.add_user_password);
 
-        // Buttons
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
-        findViewById(R.id.sign_up_button).setOnClickListener(this);
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    Intent intent = new Intent(LogSignInActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            }
+        };
 
-        // [START initialize_auth]
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LogSignInActivity.this, SignUpActivity.class);
+                startActivity(intent);
+
+            }
+
+
+        });
+
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String email = addEmail.getText().toString();
+                final String password = addPassWord.getText().toString();
+
+                // get email and password and send it to fireBase Auth
+                if ((!email.isEmpty()) && (!password.isEmpty())) {
+                    FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            Toast.makeText(LogSignInActivity.this, "Sign in successfully!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(LogSignInActivity.this, "Sign in failed",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    mAuthListener = new FirebaseAuth.AuthStateListener() {
+                        @Override
+                        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (user != null) {
+                                Intent intent = new Intent(LogSignInActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+                    };
+
+
+                } else {
+                    Toast.makeText(LogSignInActivity.this, "Please check your input info",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
     }
 
     @Override
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.sign_in_button) {
-            signIn(addEmail.getText().toString(), addPassWord.getText().toString());
+    public void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().addAuthStateListener(mAuthListener);
 
-        } else if (i == R.id.sign_up_button) {
-            Intent intent = new Intent(LogSignInActivity.this,SignUpActivity.class);
-            startActivity(intent);
+    }
+
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
         }
     }
 
-    private void signIn(String email, String password) {
-        Log.d(TAG, "signIn:" + email);
-        if (!validateForm()) {
-            return;
-        }
+    private void setupFirebaseAuth() {
 
-        // [START sign_in_with_email]
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success
-                            Log.d(TAG, "signInWithEmail:success");
-                            Toast.makeText(LogSignInActivity.this, "Success!",
-                                    Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LogSignInActivity.this,MainActivity.class);
-                            startActivity(intent);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LogSignInActivity.this, "Login failed:(",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-        // [END sign_in_with_email]
-    }
 
-    private boolean validateForm() {
-        boolean valid = true;
-
-        String email = addEmail.getText().toString();
-        if (TextUtils.isEmpty(email)) {
-            addEmail.setError("Required.");
-            valid = false;
-        } else {
-            addEmail.setError(null);
-        }
-
-        String password = addPassWord.getText().toString();
-        if (TextUtils.isEmpty(password)) {
-            addPassWord.setError("Required.");
-            valid = false;
-        } else {
-            addPassWord.setError(null);
-        }
-
-        return valid;
     }
 
 
